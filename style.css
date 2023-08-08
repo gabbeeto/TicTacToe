@@ -1,7 +1,17 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+
+}
+
+
 :root{
 --black: black;
 --white: white;
-
+/*calculation*/
+--header: 10vh;
+--main: calc(100vh - var(--header));
 }
 
 
@@ -9,4 +19,39 @@
 body{
 background-color: var(--black);
 color: var(--white);
+}
+
+header{
+	height: var(--header);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 2px solid var(--white);
+}
+main{
+
+	height: var(--main);
+	padding: 20px;
+}
+
+
+section:first-of-type{
+display: grid;
+grid-template: repeat(3,1fr) / repeat(3,1fr);
+width: 40%;
+height: 60%;
+gap: 20px;
+}
+
+section:first-of-type > div{
+background-color: var(--white);
+display: flex;
+justify-content: center;
+}
+
+.container{
+align-self: center;
+width: 80%;
+height: 80%;
+
 }
