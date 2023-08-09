@@ -9,6 +9,8 @@ box-sizing: border-box;
 :root{
 --black: black;
 --white: white;
+--playerOne: #00BE7F;
+--playerTwo: #BEA600;
 --boxShadowColor: #3D0046;
 /*calculation*/
 --header: 8vh;
@@ -80,4 +82,12 @@ height: 15vh;
 
 section:nth-of-type(2) > button{
 display:none
+}
+
+.playerOne{
+color:var(--playerOne)
+}
+
+.playerTwo{
+color:var(--playerTwo)
 }

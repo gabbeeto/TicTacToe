@@ -46,13 +46,27 @@ field.removeEventListener("click", fillContainer)
 		}
 }
 
+function returnColorDependingOnThePlayer(){
+if(returnPlayerTurn() == `it's player two turn`){
+	  document.querySelector('h3').classList.add('playerTwo');
+	  document.querySelector('h3').classList.remove('playerOne');
+}
+else{
+	  document.querySelector('h3').classList.add('playerOne');
+	  document.querySelector('h3').classList.remove('playerTwo');
+}
+
+
+}
+
 
 function fillContainer(event){
 switch(event.target.id){
 	case 'one':
 		if(!gameboard[0]){
-		gameboard[0] = switchPlayerAndReturnPlayerScore()
-	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		gameboard[0] = switchPlayerAndReturnPlayerScore();
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`;
+		returnColorDependingOnThePlayer();
 		updateArrayIntoHtml(0);
 		document.querySelector('h2').innerText = checkWinner();
 		stopPlayersIfMatchEnded();
@@ -62,6 +76,7 @@ switch(event.target.id){
 		if(!gameboard[1]){
 		gameboard[1] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(1);
 		document.querySelector('h2').innerText = checkWinner();
@@ -72,6 +87,7 @@ switch(event.target.id){
 		if(!gameboard[2]){
 		gameboard[2] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(2);
 		document.querySelector('h2').innerText = checkWinner();
@@ -82,6 +98,7 @@ switch(event.target.id){
 		if(!gameboard[3]){
 		gameboard[3] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(3);
 		document.querySelector('h2').innerText = checkWinner();
@@ -92,6 +109,7 @@ switch(event.target.id){
 		if(!gameboard[4]){
 		gameboard[4] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(4);
 		document.querySelector('h2').innerText = checkWinner();
@@ -102,6 +120,7 @@ switch(event.target.id){
 		if(!gameboard[5]){
 		gameboard[5] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(5);
 		document.querySelector('h2').innerText = checkWinner();
@@ -112,6 +131,7 @@ switch(event.target.id){
 		if(!gameboard[6]){
 		gameboard[6] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(6);
 		document.querySelector('h2').innerText = checkWinner();
@@ -122,6 +142,7 @@ switch(event.target.id){
 		if(!gameboard[7]){
 		gameboard[7] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(7);
 		document.querySelector('h2').innerText = checkWinner();
@@ -132,6 +153,7 @@ switch(event.target.id){
 		if(!gameboard[8]){
 		gameboard[8] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(8);
 		document.querySelector('h2').innerText = checkWinner();
