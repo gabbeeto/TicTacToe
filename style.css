@@ -10,8 +10,8 @@ box-sizing: border-box;
 --black: black;
 --white: white;
 /*calculation*/
---header: 10vh;
---main: calc(100vh - var(--header));
+--header: 8vh;
+--main: 100vh;
 }
 
 
@@ -28,8 +28,8 @@ header{
 	align-items: center;
 	border-bottom: 2px solid var(--white);
 }
-main{
 
+main{
 	height: var(--main);
 	padding: 20px;
 }
@@ -40,7 +40,7 @@ display: grid;
 grid-template: repeat(3,1fr) / repeat(3,1fr);
 width: 40%;
 height: 60%;
-gap: 20px;
+gap: 10px;
 }
 
 section:first-of-type > div{
@@ -51,7 +51,10 @@ justify-content: center;
 
 .container{
 align-self: center;
-width: 80%;
-height: 80%;
+width: 15vh;
+height: 15vh;
+}
 
+section:nth-of-type(2) > button{
+display:none
 }

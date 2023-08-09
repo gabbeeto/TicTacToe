@@ -1,123 +1,141 @@
 function selectElement(element){
 return document.querySelector(element)
-}
-
-function selectElementAll(element){
-return document.querySelectorAll(element)
-}
-
-function mkElement(element){
-return document.createElement(element);
 
 }
 
+let playerOneTurn = true;
 
 
-const returnPlayer = (function() {
-
-let _playerOneTurn = true;
-
-function switchPlayer(){
-if(_playerOneTurn){
-_playerOneTurn = false;
+function switchPlayerAndReturnPlayerScore(){
+if(playerOneTurn){
+playerOneTurn = false;
 return 'o';
 }
 else{
-_playerOneTurn = true;
+playerOneTurn = true;
 return 'x';
 }
 }
 
-return {switchPlayer}
-
-})();
 
 
+//this is where all the scores of the players belong
 gameboard = []
+
 
 const field = selectElement('section:first-of-type');
 field.addEventListener('click', fillContainer );
+
+function returnPlayerTurn(){
+if(playerOneTurn){
+return `it's player one turn`;
+}
+else{
+return `it's player two turn`;
+}
+
+
+}
+
+
+function stopPlayersIfMatchEnded(){
+if(checkWinner() != ''){
+document.querySelector('section:nth-of-type(2) > button').style.display = 'inline-block';
+field.removeEventListener("click", fillContainer)
+
+		}
+}
+
 
 function fillContainer(event){
 switch(event.target.id){
 	case 'one':
 		if(!gameboard[0]){
-		gameboard[0] = returnPlayer.switchPlayer()
-		console.log(gameboard);
+		gameboard[0] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		updateArrayIntoHtml(0);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'two':
 		if(!gameboard[1]){
-		gameboard[1] = returnPlayer.switchPlayer()
+		gameboard[1] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(1);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'three':
 		if(!gameboard[2]){
-		gameboard[2] = returnPlayer.switchPlayer()
+		gameboard[2] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(2);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'four':
 		if(!gameboard[3]){
-		gameboard[3] = returnPlayer.switchPlayer()
+		gameboard[3] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(3);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'five':
 		if(!gameboard[4]){
-		gameboard[4] = returnPlayer.switchPlayer()
+		gameboard[4] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(4);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'six':
 		if(!gameboard[5]){
-		gameboard[5] = returnPlayer.switchPlayer()
+		gameboard[5] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(5);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'seven':
 		if(!gameboard[6]){
-		gameboard[6] = returnPlayer.switchPlayer()
+		gameboard[6] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(6);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'eight':
 		if(!gameboard[7]){
-		gameboard[7] = returnPlayer.switchPlayer()
+		gameboard[7] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(7);
-		//checkWinner();
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 	case 'nine':
 		if(!gameboard[8]){
-		gameboard[8] = returnPlayer.switchPlayer()
+		gameboard[8] = switchPlayerAndReturnPlayerScore()
+	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 		console.log(gameboard);
 		updateArrayIntoHtml(8);
 		document.querySelector('h2').innerText = checkWinner();
+		stopPlayersIfMatchEnded();
 		}
 		break;
 }
@@ -126,6 +144,7 @@ switch(event.target.id){
 
 function updateArrayIntoHtml(number)  {
 img = document.createElement('img');
+//add different images depending on the player 
 switch(gameboard[number]){
 	case 'o':
 		img.src = 'images/face1.png';
@@ -136,14 +155,17 @@ switch(gameboard[number]){
 		img.classList.add('container');
 		break;
 }
+
 document.querySelectorAll('section > div')[number].appendChild(img);
 }
 
 
 
-let checkWinner = (function checkWinner(){
+let checkWinner = (function (){
 
-const winningPatterns = function(symbol) {
+
+const matchWinningPatternsForPlayers = function(symbol) {
+
 //horizontal winning
 if(gameboard[0] == symbol && gameboard[1] == symbol && gameboard[2] == symbol){
 return true;
@@ -182,14 +204,38 @@ return false;
 }
 
 
+let _numberOfElements = 0;
+//this is for when nobody wins and they filled all the containers
+function checkForTie(){
+for(let i =0;gameboard.length > i;i++){
+if(gameboard[i] == 'o' || gameboard[i] == 'x' ){
+_numberOfElements = _numberOfElements +1;
 
-winningPatterns('o');
-winningPatterns('x');
-if(winningPatterns('o')){
+}
+
+}
+
+if(_numberOfElements == 9){
+return true;
+}
+else{
+_numberOfElements = 0;
+}
+}
+
+
+
+matchWinningPatternsForPlayers('o');
+matchWinningPatternsForPlayers('x');
+
+if(matchWinningPatternsForPlayers('o')){
 return 'player One Won';
 }
-else if(winningPatterns('x')){
+else if(matchWinningPatternsForPlayers('x')){
 return 'player two won';
+}
+else if(checkForTie()){
+return `it's a tie`;
 }
 else{
 return '';
@@ -198,3 +244,27 @@ return '';
 
 })
 
+//let the user know that it's the first player turn at the beginning of the game
+document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+
+playAgainButton = document.querySelector('section:nth-of-type(2) > button')
+playAgainButton.addEventListener('click', resetTheGame);
+
+function resetTheGame(){
+//reset the scores
+gameboard = [];
+//unfill all the divs that have images
+itemsForTheFirstDiv = document.querySelectorAll('section:first-of-type > *');
+for(index =0; index < itemsForTheFirstDiv.length; index++){
+itemsForTheFirstDiv[index].innerHTML = '';
+}
+//add the event listener back
+field.addEventListener('click', fillContainer)
+
+//get the player one turn back
+playerOneTurn = true;
+
+//empty the heading elements
+document.querySelector('h2').innerText = '';
+document.querySelector('h3').innerText = '';
+}
