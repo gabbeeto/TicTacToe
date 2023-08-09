@@ -9,6 +9,7 @@ box-sizing: border-box;
 :root{
 --black: black;
 --white: white;
+--boxShadowColor: #3D0046;
 /*calculation*/
 --header: 8vh;
 --main: 100vh;
@@ -32,6 +33,11 @@ header{
 main{
 	height: var(--main);
 	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
 }
 
 
@@ -47,6 +53,23 @@ section:first-of-type > div{
 background-color: var(--white);
 display: flex;
 justify-content: center;
+border-radius: 10px;
+box-shadow: 5px 5px 4px 2px var(--boxShadowColor);
+}
+
+/*playAgainButton Div*/
+section:nth-of-type(2) {
+display:flex;
+justify-content: center;
+align-items: center;
+}
+
+button{
+background-color: var(--black);
+color: var(--white);
+padding: 10px;
+border-radius: 10px;
+border: 2px solid var(--white);
 }
 
 .container{
