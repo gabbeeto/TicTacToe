@@ -73,6 +73,16 @@ padding: 10px;
 border-radius: 10px;
 border: 2px solid var(--white);
 }
+button:hover{
+cursor: pointer;
+}
+
+button:active{
+background-color: var(--white);
+color: var(--black);
+border: 2px solid var(--black);
+}
+
 
 .container{
 align-self: center;
@@ -90,4 +100,11 @@ color:var(--playerOne)
 
 .playerTwo{
 color:var(--playerTwo)
+}
+section:last-of-type{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+font-size: 1.2rem;
 }
