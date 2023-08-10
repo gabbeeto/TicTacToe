@@ -1,12 +1,84 @@
+
 function selectElement(element){
 return document.querySelector(element)
 
 }
 
+
+
+
+
+let humanChoices = []
+let amountOfComputerChoices = 0;
+
+
+const computerChoice = function (){
+
+humanChoices = []
+let AmountOfChoicesForHumans = 0;
+if(mode == 'computer'){
+for(let index0 = 0;index0 < gameboard.length; index0++)
+{
+if(gameboard[index0] == 'o'){
+AmountOfChoicesForHumans = AmountOfChoicesForHumans +1;
+humanChoices.push(index0);
+}
+}
+
+
+
+function getRandomNumber(number){
+return Math.floor(Math.random() * number);
+}
+
+
+let pickedNumber = getRandomNumber(8 - (humanChoices.length - 1 + amountOfComputerChoices))
+
+
+for(let foundNumber = false, revert = false;foundNumber == false;){
+if(gameboard[pickedNumber]){
+pickedNumber = pickedNumber + 1
+
+if(revert == true){
+pickedNumber = pickedNumber -2; 
+}
+
+if(pickedNumber > 8){
+pickedNumber = 7;
+revert = true
+}
+
+}
+else{
+foundNumber = true;
+}
+
+
+}
+
+gameboard[pickedNumber] = 'x';
+updateArrayIntoHtml(pickedNumber);
+amountOfComputerChoices = amountOfComputerChoices +1;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 let playerOneTurn = true;
 
 
 function switchPlayerAndReturnPlayerScore(){
+if(mode == 'player'){
 if(playerOneTurn){
 playerOneTurn = false;
 return 'o';
@@ -15,7 +87,15 @@ else{
 playerOneTurn = true;
 return 'x';
 }
+
 }
+
+else{
+return 'o';
+
+}
+}
+
 
 
 
@@ -39,7 +119,7 @@ return `it's player two turn`;
 
 
 function stopPlayersIfMatchEnded(){
-if(checkWinner() != ''){
+if(evaluateWinnerBasedOnElection() != ''){
 document.querySelector('section:nth-of-type(2) > button').style.display = 'inline-block';
 field.removeEventListener("click", fillContainer)
 
@@ -68,8 +148,9 @@ switch(event.target.id){
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`;
 		returnColorDependingOnThePlayer();
 		updateArrayIntoHtml(0);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'two':
@@ -79,8 +160,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(1);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'three':
@@ -90,8 +172,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(2);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'four':
@@ -101,8 +184,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(3);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'five':
@@ -112,8 +196,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(4);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'six':
@@ -123,8 +208,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(5);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'seven':
@@ -134,8 +220,9 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(6);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'eight':
@@ -145,23 +232,31 @@ switch(event.target.id){
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(7);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
+		computerChoice();
 		}
 		break;
 	case 'nine':
 		if(!gameboard[8]){
 		gameboard[8] = switchPlayerAndReturnPlayerScore()
 	  document.querySelector('h3').innerText = `${returnPlayerTurn()}`
+		computerChoice();
 		returnColorDependingOnThePlayer();
 		console.log(gameboard);
 		updateArrayIntoHtml(8);
-		document.querySelector('h2').innerText = checkWinner();
+		document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
 		stopPlayersIfMatchEnded();
 		}
 		break;
 }
 }
+
+
+
+
+
+
 
 
 function updateArrayIntoHtml(number)  {
@@ -183,7 +278,7 @@ document.querySelectorAll('section > div')[number].appendChild(img);
 
 
 
-let checkWinner = (function (){
+let evaluateWinnerBasedOnElection = (function (){
 
 
 const matchWinningPatternsForPlayers = function(symbol) {
@@ -266,6 +361,38 @@ return '';
 
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+let mode = 'player'
+
+const Settings = (function (){
+
+
+document.querySelector('section:last-of-type button').addEventListener('click', switchModes)
+function switchModes(){
+if(mode == 'player'){
+mode = 'computer';
+document.querySelector('section:last-of-type p').innerText = 'human vs computer'
+}
+else{
+mode = 'player';
+document.querySelector('section:last-of-type p').innerText = 'human vs human'
+}
+
+}
+
+
 //let the user know that it's the first player turn at the beginning of the game
 document.querySelector('h3').innerText = `${returnPlayerTurn()}`
 
@@ -290,3 +417,7 @@ playerOneTurn = true;
 document.querySelector('h2').innerText = '';
 document.querySelector('h3').innerText = '';
 }
+
+
+
+})()
