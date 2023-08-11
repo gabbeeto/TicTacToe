@@ -247,9 +247,7 @@ function fillContainer(event) {
 				updateArrayIntoHtml(7);
 				computerChoice();
 				document.querySelector('h2').innerText = evaluateWinnerBasedOnElection();
-				stopPlayersIfMatchEnded();
-			}
-			break;
+				stopPlayersIfMatchEnded(); } break;
 		case 'nine':
 			if (!gameboard[8]) {
 				gameboard[8] = switchPlayerAndReturnPlayerScore()
@@ -422,17 +420,21 @@ const Settings = (function () {
     amountOfComputerChoices = 0;
 	}
 
-
-	document.querySelector('section:last-of-type button').addEventListener('click', _switchModes)
+  _playAgainstComputerButton = document.querySelector('section:last-of-type button');
+	_playAgainstComputerButton.addEventListener('click', _switchModes)
 	function _switchModes() {
 		if (mode == 'player') {
 			mode = 'computer';
 			document.querySelector('section:last-of-type p').innerText = 'human vs computer'
+			_playAgainstComputerButton.innerText = 'Play Agaisnt Human';
+			document.querySelector('section:last-of-type img:nth-of-type(2)').src = 'images/face3.png'
 			_resetTheGame()
 		}
 		else {
 			mode = 'player';
 			document.querySelector('section:last-of-type p').innerText = 'human vs human'
+			_playAgainstComputerButton.innerText = 'Play Agaisnt Computer';
+			document.querySelector('section:last-of-type img:nth-of-type(2)').src = 'images/face2.png'
 			_resetTheGame()
 		}
 
